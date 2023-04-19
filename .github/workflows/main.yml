@@ -11,8 +11,8 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   try:
-    runs-on: [self-hosted, linux]
-    # runs-on: ubuntu-latest
+    # runs-on: [self-hosted, linux]
+    runs-on: ubuntu-latest
     steps:
         # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
         - name: Checks-out your repository under $GITHUB_WORKSPAC
@@ -28,7 +28,7 @@ jobs:
             echo Simple test,
             echo it is well done.
   docker:
-    runs-on: ubuntu
+    runs-on: ubuntu-latest
     steps:
         - name: Checks-out your repository under $GITHUB_WORKSPAC
           uses: actions/checkout@v3
