@@ -33,7 +33,7 @@ jobs:
         - name: Checks-out your repository under $GITHUB_WORKSPAC
           uses: actions/checkout@v3
         - name: install docker
-          run: sudo apt update && sudo apt install -y docker.io
+          run: run: sudo apt update && sudo apt install -y docker.io -e
           # run: echo "${{secrets.password}}" | sudo apt-get install docker.io -y
           
   # 在 docker 中建立一個 runner
