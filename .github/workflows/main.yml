@@ -48,7 +48,7 @@ jobs:
 
         - name: build docker
           env:
-            imageName: ${{DOCKERHUB_USERNAME}}/test
+            imageName: ${{secrets.DOCKERHUB_USERNAME}}/test
           run: docker build -t $imageName .
 
         - name: see all the images
@@ -64,7 +64,7 @@ jobs:
 
         - name: docker push
           env:
-            imageName: ${{DOCKERHUB_USERNAME}}/test
+            imageName: ${{secrets.DOCKERHUB_USERNAME}}/test
           run: docker push imageName
 #   test:
 #     runs-on: [self-hosted, linux]
