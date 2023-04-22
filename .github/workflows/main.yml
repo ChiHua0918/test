@@ -29,9 +29,8 @@ jobs:
   #           echo it is well done.
   # 在 docker 中建立一個 runner
   build:
-    runs-on: [self-hosted, linux]
-    needs: docker
-    # runs-on: ubuntu-latest
+    # runs-on: [self-hosted, linux]
+    runs-on: ubuntu-latest
     steps:
         # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
         - name: Checks-out your repository under $GITHUB_WORKSPAC
