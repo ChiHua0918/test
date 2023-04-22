@@ -70,7 +70,7 @@ jobs:
         #   run: docker push $imageName
 
   deploy:
-    needs: test
+    needs: build
     # runs-on: [self-hosted, linux]
     runs-on: ubuntu-latest
     steps:
