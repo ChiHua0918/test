@@ -65,7 +65,7 @@ jobs:
         - name: docker push
           env:
             imageName: ${{secrets.DOCKERHUB_USERNAME}}/test
-          run: docker push imageName
+          run: docker push $imageName
 #   test:
 #     runs-on: [self-hosted, linux]
 #     needs: build
