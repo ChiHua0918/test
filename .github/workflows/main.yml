@@ -52,9 +52,7 @@ jobs:
           run: docker build -t $imageName .
 
         - name: see all the images
-          run: |
-            docker prune -a
-            docker images
+          run: docker images
         
         # - name: login in docker hub
         #   # uses: docker/login-action@v2
