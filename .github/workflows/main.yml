@@ -27,56 +27,58 @@ jobs:
   #         run: |
   #           echo Simple test,
   #           echo it is well done.
-  docker:
-    runs-on: ubuntu-latest
+  # 在 docker 中建立一個 runner
+  build:
+    runs-on: [self-hosted, linux]
+    needs: docker
+    # runs-on: ubuntu-latest
     steps:
+        # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
         - name: Checks-out your repository under $GITHUB_WORKSPAC
           uses: actions/checkout@v3
-        - name: install docker
-          run: run: sudo apt update && sudo apt install -y docker.io -e
-          # run: echo "${{secrets.password}}" | sudo apt-get install docker.io -y
-          
-  # 在 docker 中建立一個 runner
-  # build:
-  #   runs-on: [self-hosted, linux]
-  #   needs: docker
-  #   # runs-on: ubuntu-latest
-  #   steps:
-  #       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-  #       - name: Checks-out your repository under $GITHUB_WORKSPAC
-  #         uses: actions/checkout@v3
 
-  #       - name: Login to GitHub Container Registry
-  #         uses: docker/login-action@v2
-  #         with:
-  #           registry: ghcr.io
-  #           username: ${{ github.actor }}
-  #           password: ${{ secrets.GITHUB_TOKEN }}
+        # - name: Login to GitHub Container Registry
+        #   uses: docker/login-action@v2
+        #   with:
+        #     registry: ghcr.io
+        #     username: ${{ github.actor }}
+        #     password: ${{ secrets.GITHUB_TOKEN }}
             
-  #       - name: install package
-  #         run: pip install -r ./flask/requirements.txt
+        - name: install package
+          run: pip install -r ./flask/requirements.txt
 
-  #       # - name: test input a name string
-  #       #   run: python3 test.py Amber
-  #       # - name: install docker
-  #         # run: sudo apt install docker.io
+        # - name: test input a name string
+        #   run: python3 test.py Amber
+        # - name: install docker
+          # run: sudo apt install docker.io
 
-  #       # - name: login in docker hub
-  #       #   # run: |
-  #       #     # docker login -u ${secrets.DOCKERHUB_USERNAME} -p ${secrets.DOCKERHUB_TOKEN}
-  #       #   uses: docker/login-action@v2
-  #       #   with:
-  #       #     username: ${{ secrets.DOCKERHUB_USERNAME }}
-  #       #     password: ${{ secrets.DOCKERHUB_TOKEN }}
-  #       - name: build docker
-  #         run: docker build -t flask .
+        - name: login in docker hub
+          # uses: docker/login-action@v2
+          with:
+            username: ${{ secrets.DOCKERHUB_USERNAME }}
+            password: ${{ secrets.DOCKERHUB_TOKEN }}
+          run: |
+            docker login -u ${username} -p ${password}
+#         - name: build docker
+#           run: docker build -t flask .
 
-  #       - name: see all the images
-  #         run: docker images
+#         - name: see all the images
+#           run: docker images
+        
+#   test:
+#     runs-on: [self-hosted, linux]
+#     needs: build
+#     steps:
+#       - name: unit test
+#         run: python3 test.py
+#   deploy:
+#     needs: test
+#     runs-on: [self-hosted, linux]
+#     steps:
+#       - name: run the docker image
+#         run: docker-compose up
 
-  # deploy:
-  #   needs: deploy to container
-  #   runs-on: [self-hosted, linux]
-  #   steps:
-  #     - name: run the docker image
-  #       run: docker-compose up
+
+# # docker login -> docker push
+# docker login -u chichihua -p @opop7788
+# docker push chichihua/github_action_test:flask
